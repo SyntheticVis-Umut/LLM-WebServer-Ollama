@@ -1,7 +1,7 @@
 {
-  "name": "ollama-chatbot",
+  "name": "llm-webserver-ollama",
   "version": "1.0.0",
-  "description": "Simple chatbot using Ollama JavaScript library",
+  "description": "LLM Web Server with Ollama - Interactive chatbot interface supporting both Local Ollama and Ollama Cloud",
   "type": "module",
   "main": "server.js",
   "scripts": {
