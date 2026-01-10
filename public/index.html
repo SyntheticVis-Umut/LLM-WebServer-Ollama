@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ollama Chatbot</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="container">
+        <div class="chat-header">
+            <h1>🤖 Ollama Chatbot</h1>
+            <div class="model-selector">
+                <label for="modelSelect">Model:</label>
+                <select id="modelSelect">
+                    <option value="">Loading...</option>
+                </select>
+                <button id="refreshModels" class="btn-refresh" title="Refresh models">🔄</button>
+            </div>
+        </div>
+        
+        <div class="chat-container" id="chatContainer">
+            <div class="welcome-message">
+                <p>👋 Welcome! Start a conversation with the AI chatbot.</p>
+                <p class="hint">Connecting to Ollama...</p>
+            </div>
+        </div>
+        
+        <div class="input-container">
+            <textarea 
+                id="messageInput" 
+                placeholder="Type your message here... (Press Enter to send, Shift+Enter for new line)"
+                rows="1"
+            ></textarea>
+            <button id="sendButton" class="btn-send">Send</button>
+        </div>
+        
+        <div class="status" id="status"></div>
+    </div>
+    
+    <script src="app.js"></script>
+</body>
+</html>
