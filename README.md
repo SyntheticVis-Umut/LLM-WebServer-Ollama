@@ -13,6 +13,8 @@ A simple, beautiful chatbot interface built with JavaScript and the Ollama JavaS
 - 🔀 Switch between Local and Cloud modes
 - ☁️ Ollama Cloud support (no local installation required)
 - 💻 Local Ollama support (use your own models)
+- 🔍 **Web search capability** - LLM can automatically search the web for current information
+- 🧠 **Intelligent reasoning** - LLM decides when web search is needed based on the question
 
 ## Installation
 
@@ -54,6 +56,22 @@ OLLAMA_API_KEY=your_api_key_here
 **Prerequisites for Cloud Mode:**
 1. Sign up for a free account at [ollama.com](https://ollama.com)
 2. Get your API key from [ollama.com/settings/keys](https://ollama.com/settings/keys)
+
+### Web Search (Optional)
+
+To enable web search functionality, add these to your `.env` file:
+```
+GOOGLE_API_KEY=your_google_api_key
+GOOGLE_CSE_ID=your_custom_search_engine_id
+```
+
+**Prerequisites for Web Search:**
+1. Get a Google API key from [Google Cloud Console](https://console.cloud.google.com/)
+2. Enable the Custom Search API
+3. Create a Custom Search Engine at [Google Custom Search](https://programmablesearchengine.google.com/)
+4. Get your Custom Search Engine ID (CSE ID)
+
+The LLM will automatically determine when web search is needed based on the question (e.g., current events, recent news, real-time information).
 
 ## Running the Application
 

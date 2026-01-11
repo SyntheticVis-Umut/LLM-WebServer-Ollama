@@ -220,6 +220,33 @@ body {
     }
 }
 
+.message.status-message {
+    align-items: center;
+    margin: 5px 0;
+}
+
+.message.status-message .message-content {
+    background: linear-gradient(135deg, #f0f4ff 0%, #e8f0fe 100%);
+    color: #5a67d8;
+    border: 1px solid #c3dafe;
+    border-radius: 12px;
+    padding: 8px 14px;
+    font-size: 13px;
+    font-style: italic;
+    max-width: 90%;
+    text-align: center;
+    animation: pulse 2s ease-in-out infinite;
+}
+
+@keyframes pulse {
+    0%, 100% {
+        opacity: 0.8;
+    }
+    50% {
+        opacity: 1;
+    }
+}
+
 .input-container {
     display: flex;
     gap: 10px;

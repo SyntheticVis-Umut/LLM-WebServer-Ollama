@@ -269,6 +269,7 @@ class Chatbot {
             const decoder = new TextDecoder();
             let buffer = '';
             let fullResponse = '';
+            let statusMessageId = null;
 
             while (true) {
                 const { done, value } = await reader.read();
@@ -285,6 +286,12 @@ class Chatbot {
                             const data = JSON.parse(line.slice(6));
                             
                             if (data.done) {
+                                // Remove status message if it exists
+                                if (statusMessageId) {
+                                    const statusMsg = document.getElementById(statusMessageId);
+                                    if (statusMsg) statusMsg.remove();
+                                }
+                                
                                 // Add to conversation history
                                 this.conversationHistory.push(
                                     { role: 'user', content: message },
@@ -294,7 +301,49 @@ class Chatbot {
                                 break;
                             }
                             
+                            // Handle status messages (reasoning, search, thinking)
+                            if (data.type && data.message) {
+                                // Remove previous status message if exists
+                                if (statusMessageId) {
+                                    const prevStatus = document.getElementById(statusMessageId);
+                                    if (prevStatus) prevStatus.remove();
+                                }
+                                
+                                // Create new status message
+                                const statusDiv = document.createElement('div');
+                                statusDiv.className = 'message assistant status-message';
+                                statusMessageId = 'status-' + Date.now();
+                                statusDiv.id = statusMessageId;
+                                
+                                const icon = data.type === 'search' ? '🔍' : data.type === 'reasoning' ? '🤔' : '💭';
+                                statusDiv.innerHTML = `<div class="message-content">${icon} ${data.message}</div>`;
+                                
+                                const assistantMsg = document.getElementById(assistantMessageId);
+                                if (assistantMsg && assistantMsg.parentNode) {
+                                    assistantMsg.parentNode.insertBefore(statusDiv, assistantMsg);
+                                } else {
+                                    this.chatContainer.appendChild(statusDiv);
+                                }
+                                
+                                this.chatContainer.scrollTop = this.chatContainer.scrollHeight;
+                            }
+                            
+                            // Handle error messages
+                            if (data.type === 'error' && data.message) {
+                                this.setStatus(data.message, 'error');
+                            }
+                            
+                            // Handle actual content
                             if (data.content) {
+                                // Remove status message when content starts
+                                if (statusMessageId) {
+                                    const statusMsg = document.getElementById(statusMessageId);
+                                    if (statusMsg) {
+                                        statusMsg.remove();
+                                        statusMessageId = null;
+                                    }
+                                }
+                                
                                 fullResponse += data.content;
                                 this.updateMessage(assistantMessageId, fullResponse);
                             }
